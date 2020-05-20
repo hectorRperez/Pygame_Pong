@@ -21,6 +21,7 @@ class PelotaPong:
         self.ancho, self.alto = self.imagen.get_size()
         print('Ancho: ',self.ancho)
         print('Alto: ',self.alto)
+
         # Posición de la pelota
         self.x = VENTANA_HORI / 2 - self.ancho / 2
         self.y = VENTANA_VERTI / 2 - self.alto / 2
@@ -35,8 +36,24 @@ class PelotaPong:
         self.x += self.dir_x
         self.y += self.dir_y
 
-    def mostrar_datos(self):
-        pass
+        print('x: {} + dirx: {} = {} '.format(self.x,self.dir_x,(self.x+self.dir_x)))
+        print('y: {} + diry: {} = {} '.format(self.y,self.dir_y,(self.y+self.dir_y)))
+        print('-------------------------------------------')
+
+    def rebotar(self):
+
+        if self.x <= 0:
+            self.dir_x = -self.dir_x
+            print('Rebote x: ',self.dir_x)
+        if self.x + self.ancho >= VENTANA_HORI:
+            self.dir_x = -self.dir_x
+            print('Rebote x: ',self.dir_x)
+        if self.y <= 0:
+            self.dir_y = -self.dir_y
+            print('Rebote Y: ',self.dir_y)
+        if self.y + self.alto >= VENTANA_VERTI:
+            self.dir_y = -self.dir_y
+            print('Rebote Y: ',self.dir_y)
 
 
 def main():
@@ -56,6 +73,7 @@ def main():
     while jugando:
 
         pelota.mover()
+        pelota.rebotar()
 
         ventana.fill(BLANCO)
         ventana.blit(pelota.imagen, (pelota.x, pelota.y))
