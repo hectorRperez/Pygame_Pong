@@ -43,17 +43,43 @@ class PelotaPong:
     def rebotar(self):
 
         if self.x <= 0:
-            self.dir_x = -self.dir_x
-            print('Rebote x: ',self.dir_x)
+            print('Rebote X <= 0')
+            print('Posición x: ',self.x)
+            print('direccion x: ',self.dir_x)
+            print('Luego del reinicio')
+            self.reiniciar()
+            print('Posición x: ',self.x)
+            print('direccion x: ',self.dir_x)
+
         if self.x + self.ancho >= VENTANA_HORI:
-            self.dir_x = -self.dir_x
-            print('Rebote x: ',self.dir_x)
+            print('Rebote X >= VENTANA_HORI')
+            print('Posición x: ',self.x)
+            print('direccion x: ',self.dir_x)
+            print('Luego del reinicio')
+            self.reiniciar()
+            print('Posición x: ',self.x)
+            print('direccion x: ',self.dir_x)
+
         if self.y <= 0:
             self.dir_y = -self.dir_y
-            print('Rebote Y: ',self.dir_y)
+            print('Rebote Y <= 0')
+            print('Posición y: ',self.y)
+            print('direccion y: ',self.dir_y)
+
         if self.y + self.alto >= VENTANA_VERTI:
             self.dir_y = -self.dir_y
-            print('Rebote Y: ',self.dir_y)
+            print('Rebote Y  >= VENTANA_VERTI')
+            print('Posición y: ',self.y)
+            print('direccion y: ',self.dir_y)
+    
+    def reiniciar(self):
+        #Posición de la pelota en el medio
+        self.x = VENTANA_HORI / 2 - self.ancho / 2
+        self.y = VENTANA_VERTI / 2 - self.alto / 2
+
+        self.dir_x = -self.dir_x
+        self.dir_y = random.choice([-5,5])
+
 
 
 def main():
