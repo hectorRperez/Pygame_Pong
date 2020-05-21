@@ -80,7 +80,26 @@ class PelotaPong:
         self.dir_x = -self.dir_x
         self.dir_y = random.choice([-5,5])
 
+class RaquetaPong:
+    def __init__(self):
+        self.image = pygame.image.load('raqueta.jpg').convert_alpha()
+        print('Image raqueta: ',self.image)
+        #-------------- Atributos de la raqueta ------------------
 
+        #Dimensiones de la raqueta
+        self.ancho , self.alto = self.image.get_size()
+        print('ancho raqueta: ',self.ancho)
+        print('alto raqueta: ',self.alto)
+
+        #Posición de la raqueta
+        self.x = 0
+        self.y = VENTANA_VERTI / 2 - self.alto / 2
+
+        #Dirección de movimiento de la raqueta
+        self.dir_y = 0
+
+    def mover_raqueta(self):
+        self.y += self.dir_y
 
 def main():
 
@@ -93,6 +112,12 @@ def main():
     #Se crea un nuevo objeto del Tipo PelotaPong
     pelota = PelotaPong('pelota_roja.jpg')
 
+    raqueta_1 = RaquetaPong()
+    raqueta_1.x = 60
+
+    raqueta_2 = RaquetaPong()
+    raqueta_2.x = VENTANA_HORI - 60 - raqueta_2.ancho
+
     jugando = True
 
     # Bucle principal
@@ -103,6 +128,10 @@ def main():
 
         ventana.fill(BLANCO)
         ventana.blit(pelota.imagen, (pelota.x, pelota.y))
+
+        ventana.blit(raqueta_1.image, (raqueta_1.x, raqueta_1.y))
+        ventana.blit(raqueta_2.image, (raqueta_2.x, raqueta_2.y))
+
 
         # Bucle que va detectando los eventos en pantalla
         for event in pygame.event.get():
