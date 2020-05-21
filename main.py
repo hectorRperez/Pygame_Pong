@@ -125,6 +125,7 @@ def main():
 
         pelota.mover()
         pelota.rebotar()
+        raqueta_1.mover_raqueta()
 
         ventana.fill(BLANCO)
         ventana.blit(pelota.imagen, (pelota.x, pelota.y))
@@ -138,6 +139,18 @@ def main():
             if event.type == QUIT:
                 jugando = False
                 print('Se termino el juego')
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    raqueta_1.dir_y = -5
+                if event.key == pygame.K_s:
+                    raqueta_1.dir_y = 5
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_w:
+                    raqueta_1.dir_y = 0
+                if event.key == pygame.K_s:
+                    raqueta_1.dir_y = 0
 
         pygame.display.flip()
         pygame.time.Clock().tick(FPS)
