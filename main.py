@@ -166,12 +166,14 @@ def main():
                 jugando = False
                 print('Se termino el juego')
             
+            #Detecta que se ha pulsado una tecla
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     raqueta_1.dir_y = -5
                 if event.key == pygame.K_s:
                     raqueta_1.dir_y = 5
             
+            #Detecta que se ha soltado la tecla
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     raqueta_1.dir_y = 0
