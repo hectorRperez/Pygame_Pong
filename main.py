@@ -88,18 +88,40 @@ class RaquetaPong:
 
         #Dimensiones de la raqueta
         self.ancho , self.alto = self.image.get_size()
+        
+        #Ancho 14
         print('ancho raqueta: ',self.ancho)
+
+        #Largo 77
         print('alto raqueta: ',self.alto)
 
         #Posición de la raqueta
         self.x = 0
+
+        #El valor de self.y es 261.5
         self.y = VENTANA_VERTI / 2 - self.alto / 2
 
         #Dirección de movimiento de la raqueta
         self.dir_y = 0
 
+    #TODO seguir entendiendo este metodo y entender 
+    #Porque si la variable self.y se declara con el valor 261.5
+    #Luego sale con 0
     def mover_raqueta(self):
+        print(' ----------------------------- ')
+        print('Función mover raqueta')
+        print('Y: ',self.y)
+        print('Dir Y: ',self.dir_y)
         self.y += self.dir_y
+        print('Suma de movimiento: Y: {} + Y_dir: {} = {}'.format(self.y,self.dir_y,(self.dir_y+self.dir_y)))
+        print(' ----------------------------- ')
+        if self.y <= 0:
+            print('Dentro de la condición')
+            self.y = 0
+            print(self.y)
+        
+        if self.y + self.alto >= VENTANA_VERTI:
+            self.y = VENTANA_VERTI - self.alto
 
 def main():
 
@@ -114,7 +136,11 @@ def main():
 
     raqueta_1 = RaquetaPong()
     raqueta_1.x = 60
-
+    print(' ----------------------------- ')
+    print('Creación del objeto')
+    print('X: ',raqueta_1.x)
+    print('Y: ',raqueta_1.y)
+    
     raqueta_2 = RaquetaPong()
     raqueta_2.x = VENTANA_HORI - 60 - raqueta_2.ancho
 
