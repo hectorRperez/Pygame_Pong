@@ -113,7 +113,7 @@ class RaquetaPong:
         print('Y: ',self.y)
         print('Dir Y: ',self.dir_y)
         self.y += self.dir_y
-        print('Suma de movimiento: Y: {} + Y_dir: {} = {}'.format(self.y,self.dir_y,(self.dir_y+self.dir_y)))
+        print('Suma de movimiento: Y: {} + Y_dir: {} = {}'.format(self.y,self.dir_y,(self.y+self.dir_y)))
         print(' ----------------------------- ')
         if self.y <= 0:
             print('Dentro de la condición')
@@ -122,6 +122,40 @@ class RaquetaPong:
         
         if self.y + self.alto >= VENTANA_VERTI:
             self.y = VENTANA_VERTI - self.alto
+    
+    def golpear_raqueta(self,pelota):
+        '''
+        Metodo que se encarga de que la pelota sea golpeada por la raqueta
+        parametros:
+
+        Devuelve:
+
+        '''
+        if (
+            pelota.x < self.x + self.ancho
+            and pelota.x > self.x
+            and pelota.y + pelota.alto > self.y
+            and pelota.y < self.y + self.alto 
+            ):
+            print('------------- CONDICION DE GOLPE ---------')
+            print('SE CUMPLIO 1------------------------')
+            print('Pelota X: ',pelota.x)
+            print('raqueta X: ',self.x)
+            print('Ancho: ',self.ancho)
+            print('SE CUMPLIO 2------------------------')
+            print('Pelota X: ',pelota.x)
+            print('raqueta X: ',self.x)
+            print('SE CUMPLIO 3------------------------')
+            print('Pelota Y: ',pelota.y)
+            print('Alto Pelota: ',pelota.alto)
+            print('Raqueta Y: ',self.y)
+            print('SE CUMPLIO 4------------------------')
+            print('Pelota Y: ',pelota.y)
+            print('Raqueta Y: ',self.y)
+            print('Alto raqueta: ',self.alto)
+
+            pelota.dir_x = -pelota.dir_x
+            pelota.x =  self.x + self.ancho
 
 def main():
 
@@ -152,6 +186,7 @@ def main():
         pelota.mover()
         pelota.rebotar()
         raqueta_1.mover_raqueta()
+        raqueta_1.golpear_raqueta(pelota)
 
         ventana.fill(BLANCO)
         ventana.blit(pelota.imagen, (pelota.x, pelota.y))
@@ -169,9 +204,9 @@ def main():
             #Detecta que se ha pulsado una tecla
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    raqueta_1.dir_y = -5
+                    raqueta_1.dir_y = -10
                 if event.key == pygame.K_s:
-                    raqueta_1.dir_y = 5
+                    raqueta_1.dir_y = 10
             
             #Detecta que se ha soltado la tecla
             if event.type == pygame.KEYUP:
