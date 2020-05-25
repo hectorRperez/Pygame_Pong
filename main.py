@@ -8,6 +8,7 @@ VENTANA_HORI = 800
 VENTANA_VERTI = 600
 FPS = 60
 BLANCO = (255, 255, 255)
+NEGRO = (0,0,0) #Color del texto negro (RGB)
 
 #TODO estamos entendiendo la clase Estamos en esta parte del codígo
 class PelotaPong:
@@ -32,6 +33,10 @@ class PelotaPong:
         self.dir_x = random.choice([-5, 5])
         self.dir_y = random.choice([-5, 5])
 
+        #Puntuación de la pelota
+        self.puntuacion = 0
+        self.puntuacion_ia = 0
+
     def mover(self):
         self.x += self.dir_x
         self.y += self.dir_y
@@ -44,6 +49,7 @@ class PelotaPong:
     def rebotar(self):
 
         if self.x <= 0:
+            self.puntuacion_ia += 1
             print('Rebote X <= 0')
             print('Posición x: ',self.x)
             print('direccion x: ',self.dir_x)
@@ -53,6 +59,7 @@ class PelotaPong:
             print('direccion x: ',self.dir_x)
 
         if self.x + self.ancho >= VENTANA_HORI:
+            self.puntuacion += 1
             print('Rebote X >= VENTANA_HORI')
             print('Posición x: ',self.x)
             print('direccion x: ',self.dir_x)
@@ -105,9 +112,7 @@ class RaquetaPong:
         #Dirección de movimiento de la raqueta
         self.dir_y = 0
 
-    #TODO seguir entendiendo este metodo y entender 
-    #Porque si la variable self.y se declara con el valor 261.5
-    #Luego sale con 0
+
     def mover_raqueta(self):
         print(' ----------------------------- ')
         print('Función mover raqueta')
@@ -162,12 +167,12 @@ class RaquetaPong:
         print('---------------------- Mover IA ---------------------- ')
         if self.y > pelota.y:
             print('Primera condición')
-            self.dir_y = -5
+            self.dir_y = -4
             print('self.y > pelota.y')
         
         elif self.y < pelota.y:
             print('Segunda condición')
-            self.dir_y = 5
+            self.dir_y = 4
             print('self.y < pelota.y')
         else:
             print('Tercera condición')
@@ -230,6 +235,16 @@ def main():
 
         ventana.blit(raqueta_1.image, (raqueta_1.x, raqueta_1.y))
         ventana.blit(raqueta_2.image, (raqueta_2.x, raqueta_2.y))
+
+        fuente = pygame.font.Font(None, 60)
+
+        #Codigo para mostrar la puntuación en pantalla
+        texto = '{} : {} '.format(pelota.puntuacion, pelota.puntuacion_ia)
+        letrero = fuente.render(texto, False, NEGRO)
+
+        #El metodo blint dibuja en pantalla 
+        #Recibe dos parametros, lo que se va a dibujar y la posición que tendrá el objeto en pantalla
+        ventana.blit(letrero, (VENTANA_HORI / 2 - fuente.size(texto)[0] / 2, 50))
 
 
         # Bucle que va detectando los eventos en pantalla
