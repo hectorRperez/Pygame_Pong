@@ -36,6 +36,7 @@ class PelotaPong:
         self.x += self.dir_x
         self.y += self.dir_y
 
+        print('------------ MOVIMIENTO PELOTA ---------------')
         print('x: {} + dirx: {} = {} '.format(self.x,self.dir_x,(self.x+self.dir_x)))
         print('y: {} + diry: {} = {} '.format(self.y,self.dir_y,(self.y+self.dir_y)))
         print('-------------------------------------------')
@@ -156,6 +157,38 @@ class RaquetaPong:
 
             pelota.dir_x = -pelota.dir_x
             pelota.x =  self.x + self.ancho
+    
+    def mover_ia(self,pelota):
+        print('---------------------- Mover IA ---------------------- ')
+        if self.y > pelota.y:
+            print('Primera condición')
+            self.dir_y = -5
+            print('self.y > pelota.y')
+        
+        elif self.y < pelota.y:
+            print('Segunda condición')
+            self.dir_y = 5
+            print('self.y < pelota.y')
+        else:
+            print('Tercera condición')
+            self.dir_y = 0
+            print('Ninguna condición se cumple')
+
+        self.y += self.dir_y
+        print('Movimiento de la raqueta IA: ',self.y)
+        print('---------------------------------- ')
+    
+    def golpear_raqueta_ia(self, pelota):
+        if (
+
+            pelota.x + pelota.ancho > self.x
+            and pelota.x < self.x + self.ancho
+            and pelota.y + pelota.alto > self.y 
+            and pelota.y < self.y + self.alto 
+        ):
+
+            pelota.dir_x = -pelota.dir_x
+            pelota.x = self.x - pelota.ancho
 
 def main():
 
@@ -185,8 +218,12 @@ def main():
 
         pelota.mover()
         pelota.rebotar()
+
         raqueta_1.mover_raqueta()
+        raqueta_2.mover_ia(pelota)
         raqueta_1.golpear_raqueta(pelota)
+        raqueta_2.golpear_raqueta_ia(pelota)
+        
 
         ventana.fill(BLANCO)
         ventana.blit(pelota.imagen, (pelota.x, pelota.y))
@@ -204,9 +241,9 @@ def main():
             #Detecta que se ha pulsado una tecla
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    raqueta_1.dir_y = -10
+                    raqueta_1.dir_y = -5
                 if event.key == pygame.K_s:
-                    raqueta_1.dir_y = 10
+                    raqueta_1.dir_y = 5
             
             #Detecta que se ha soltado la tecla
             if event.type == pygame.KEYUP:
